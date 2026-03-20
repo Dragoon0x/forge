@@ -1,0 +1,775 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>FORGE</title>
+<meta name="description" content="Complete design system from one color. 200+ tokens in 30 seconds. Brand palette, neutrals, type scale, spacing, shadows, motion, components. Every AI coding tool.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link id="font-link" href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700&family=DM+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&family=Instrument+Serif:ital@0;1&family=Newsreader:ital,wght@0,400;0,600;1,400&family=Source+Serif+4:wght@400;600;700&family=Fira+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+:root{
+--text:#1a1a1a;--text-s:#555;--text-m:#888;--text-f:#bbb;
+--bg:#ffffff;--bg-2:#fafafa;--bg-3:#f5f5f5;--bg-code:#1a1a1a;
+--border:#e5e5e5;--border-l:#f0f0f0;
+--accent:#e8590c;
+--mono:"SF Mono","Cascadia Mono","Fira Mono","Consolas",monospace;
+--body:-apple-system,BlinkMacSystemFont,"Segoe UI",system-ui,sans-serif;
+}
+[data-theme="dark"]{
+--text:#e5e5e5;--text-s:#aaa;--text-m:#666;--text-f:#444;
+--bg:#0e0e0e;--bg-2:#161616;--bg-3:#1e1e1e;--bg-code:#0a0a0a;
+--border:#262626;--border-l:#1e1e1e;
+}
+html{font:17px/1.7 var(--body);-webkit-font-smoothing:antialiased;color:var(--text);background:var(--bg);transition:background .3s,color .3s}
+body{padding:0 24px}
+::selection{background:var(--accent);color:#fff}
+a{color:var(--text);text-decoration:underline;text-underline-offset:2px;text-decoration-color:var(--text-f);transition:text-decoration-color .15s}
+a:hover{text-decoration-color:var(--text)}
+.skip-link{position:absolute;top:-100px;left:16px;background:var(--text);color:var(--bg);padding:8px 16px;border-radius:4px;font-size:14px;z-index:100;text-decoration:none}
+.skip-link:focus{top:16px}
+.page{max-width:680px;margin:0 auto}
+nav{display:flex;justify-content:space-between;align-items:center;padding:24px 0;font-size:14px;color:var(--text-m)}
+nav a{color:var(--text-m);text-decoration:none}nav a:hover{color:var(--text)}
+.theme-toggle{background:none;border:1px solid var(--border);border-radius:100px;padding:5px 12px;font-size:12px;color:var(--text-m);cursor:pointer;font-family:inherit;transition:all .15s}
+.theme-toggle:hover{border-color:var(--text-m);color:var(--text)}
+.hero{padding:72px 0 0}
+.hero-over{font-size:14px;color:var(--text-m);margin-bottom:4px}
+h1.title{font-size:42px;font-weight:700;letter-spacing:-.5px;line-height:1.15;margin-bottom:8px}
+.date{font-size:15px;color:var(--text-m);margin-bottom:40px}
+p{margin-bottom:20px;line-height:1.7}
+p strong{font-weight:600}
+hr{border:none;border-top:1px solid var(--border);margin:64px 0}
+h1{font-size:30px;font-weight:700;letter-spacing:-.3px;line-height:1.2;margin-bottom:20px;margin-top:0}
+h2{font-size:20px;font-weight:600;letter-spacing:-.2px;line-height:1.3;margin-top:40px;margin-bottom:14px}
+h3{font-size:13px;font-weight:600;color:var(--text-m);text-transform:uppercase;letter-spacing:.5px;margin-bottom:10px}
+code{font-family:var(--mono);font-size:.86em;background:var(--bg-3);padding:2px 6px;border-radius:4px}
+pre{background:var(--bg-code);color:#e5e5e5;padding:20px 24px;border-radius:12px;overflow-x:auto;font-family:var(--mono);font-size:13px;line-height:1.65;margin:20px 0}
+pre code{background:none;padding:0;font-size:inherit;color:inherit}
+.cap{font-size:14px;color:var(--text-m);line-height:1.5;margin:6px 0 20px}
+
+/* Generator */
+.gen{background:var(--bg-2);border:1px solid var(--border);border-radius:14px;margin:24px 0;overflow:hidden}
+.gen-bar{padding:16px 20px;display:flex;align-items:center;gap:12px;flex-wrap:wrap;border-bottom:1px solid var(--border-l)}
+.gen-color-wrap{display:flex;align-items:center;gap:8px}
+.gen-ci{width:44px;height:44px;border:none;border-radius:10px;cursor:pointer;padding:0;background:none}
+.gen-ci::-webkit-color-swatch-wrapper{padding:0}
+.gen-ci::-webkit-color-swatch{border:2px solid rgba(128,128,128,.15);border-radius:8px}
+.gen-hex{font-family:var(--mono);font-size:14px;font-weight:500;color:var(--text);width:84px;border:1px solid var(--border);border-radius:8px;padding:8px 10px;background:var(--bg);outline:none;transition:border-color .15s}
+.gen-hex:focus{border-color:var(--text)}
+.gen-types{display:flex;gap:4px}
+.gen-types button{padding:6px 13px;border-radius:100px;border:1px solid var(--border);background:var(--bg);font-family:inherit;font-size:12px;color:var(--text-m);cursor:pointer;transition:all .15s;font-weight:500}
+.gen-types button.active{background:var(--text);color:var(--bg);border-color:var(--text)}
+.gen-types button:hover:not(.active){border-color:var(--text-m)}
+.gen-go{margin-left:auto;padding:8px 18px;border-radius:100px;border:none;background:var(--text);color:var(--bg);font-family:inherit;font-size:13px;font-weight:600;cursor:pointer;transition:opacity .15s}
+.gen-go:hover{opacity:.85}
+.gen-out{padding:0 20px 24px;display:none}
+.gen-out.visible{display:block}
+.gs{margin-top:20px}
+.gs-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:10px}
+.gs-head h3{margin:0}
+.gs-copy{font-family:var(--mono);font-size:11px;color:var(--text-f);background:none;border:1px solid var(--border-l);padding:2px 8px;border-radius:5px;cursor:pointer;transition:all .15s}
+.gs-copy:hover{color:var(--text);border-color:var(--border)}
+
+/* Palettes */
+.pal-row{display:flex;border-radius:10px;overflow:hidden;height:52px}
+.sw{flex:1;position:relative;cursor:pointer;transition:flex .2s cubic-bezier(.16,1,.3,1)}
+.sw:hover{flex:2.5}
+.sw-l{position:absolute;bottom:3px;left:50%;transform:translateX(-50%);font-family:var(--mono);font-size:8px;opacity:0;transition:opacity .15s;white-space:nowrap;pointer-events:none}
+.sw:hover .sw-l{opacity:1}
+.sw-l.lt{color:rgba(0,0,0,.45)}.sw-l.dk{color:rgba(255,255,255,.65)}
+.sw-c{position:absolute;top:3px;right:3px;font-size:7px;padding:1px 3px;border-radius:3px;font-family:var(--mono);font-weight:600;opacity:0;transition:opacity .15s}
+.sw:hover .sw-c{opacity:1}
+.sw-c.pass{background:rgba(22,163,74,.2);color:#16a34a}
+.sw-c.fail{background:rgba(220,38,38,.2);color:#dc2626}
+
+/* Tokens */
+.tok-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(120px,1fr));gap:6px}
+.tok{background:var(--bg);border:1px solid var(--border-l);border-radius:8px;padding:8px;cursor:pointer;transition:border-color .15s}
+.tok:hover{border-color:var(--border)}
+.tok-sw{width:100%;height:28px;border-radius:5px;margin-bottom:6px;border:1px solid rgba(128,128,128,.08)}
+.tok-n{font-family:var(--mono);font-size:10px;color:var(--text-s)}
+.tok-v{font-family:var(--mono);font-size:10px;color:var(--text-f)}
+
+/* Type scale */
+.ts-list{display:flex;flex-direction:column;gap:2px}
+.ts-row{display:flex;align-items:baseline;gap:12px;padding:8px 0;border-bottom:1px solid var(--border-l)}
+.ts-row:last-child{border-bottom:none}
+.ts-sample{flex:1;overflow:hidden;white-space:nowrap;text-overflow:ellipsis;color:var(--text)}
+.ts-meta{font-family:var(--mono);font-size:10px;color:var(--text-f);white-space:nowrap;text-align:right;min-width:70px}
+
+/* Spacing */
+.sp-row{display:flex;align-items:center;gap:10px;margin-bottom:4px}
+.sp-bar{height:10px;border-radius:3px;transition:width .3s cubic-bezier(.16,1,.3,1)}
+.sp-lbl{font-family:var(--mono);font-size:10px;color:var(--text-f);min-width:28px}
+.sp-val{font-family:var(--mono);font-size:10px;color:var(--text-m);min-width:32px;text-align:right}
+
+/* Shadows */
+.sh-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:10px}
+.sh-card{background:var(--bg);border-radius:10px;height:56px;display:flex;align-items:center;justify-content:center;transition:transform .15s}
+.sh-card:hover{transform:translateY(-2px)}
+.sh-card span{font-family:var(--mono);font-size:10px;color:var(--text-f)}
+
+/* Radii */
+.rd-grid{display:flex;gap:10px;flex-wrap:wrap}
+.rd{width:52px;height:52px;background:var(--bg);border:2px solid var(--border);display:flex;align-items:center;justify-content:center;transition:border-color .15s}
+.rd:hover{border-color:var(--text-m)}
+.rd span{font-family:var(--mono);font-size:9px;color:var(--text-f)}
+
+/* Motion */
+.mo-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.mo-card{background:var(--bg);border:1px solid var(--border-l);border-radius:8px;padding:12px;display:flex;flex-direction:column;gap:4px}
+.mo-name{font-family:var(--mono);font-size:11px;color:var(--text-s);font-weight:500}
+.mo-val{font-family:var(--mono);font-size:11px;color:var(--text-f)}
+.mo-preview{height:4px;border-radius:2px;margin-top:4px;cursor:pointer;overflow:hidden}
+.mo-preview-bar{height:100%;border-radius:2px;width:0}
+
+/* Misc tokens */
+.misc-row{display:flex;align-items:center;gap:12px;padding:4px 0;border-bottom:1px solid var(--border-l);font-size:14px}
+.misc-row:last-child{border-bottom:none}
+.misc-name{font-family:var(--mono);font-size:12px;color:var(--text-s);font-weight:500;min-width:70px}
+.misc-val{font-family:var(--mono);font-size:12px;color:var(--text-f)}
+.misc-vis{height:8px;border-radius:4px;background:var(--border)}
+
+/* Components */
+.comp-section{padding:20px;background:var(--bg);border:1px solid var(--border-l);border-radius:12px;margin-top:10px}
+.comp-row{display:flex;flex-wrap:wrap;gap:10px;align-items:center;margin-bottom:16px}
+.comp-row:last-child{margin-bottom:0}
+.comp-label{font-size:11px;color:var(--text-m);font-weight:600;text-transform:uppercase;letter-spacing:.5px;width:100%;margin-bottom:4px}
+.c-btn{padding:9px 20px;border-radius:8px;font-family:inherit;font-size:14px;font-weight:600;cursor:pointer;border:none;transition:all .15s}
+.c-btn:hover{opacity:.9;transform:translateY(-1px)}
+.c-btn-ghost{background:transparent;border:1px solid}
+.c-input{padding:9px 14px;border-radius:8px;font-family:inherit;font-size:14px;border:1px solid;background:transparent;outline:none;width:200px;transition:border-color .15s}
+.c-badge{padding:3px 10px;border-radius:100px;font-size:12px;font-weight:600;display:inline-flex;align-items:center;gap:4px}
+.c-card{border-radius:12px;padding:16px;border:1px solid;min-width:180px}
+.c-card-title{font-size:15px;font-weight:600;margin-bottom:4px}
+.c-card-desc{font-size:13px;opacity:.7}
+
+/* Dark mode preview */
+.dm-toggle{display:flex;gap:4px;margin-bottom:12px}
+.dm-btn{padding:5px 14px;border-radius:100px;border:1px solid var(--border);background:var(--bg);font-size:12px;color:var(--text-m);cursor:pointer;font-family:inherit;font-weight:500;transition:all .15s}
+.dm-btn.active{background:var(--text);color:var(--bg);border-color:var(--text)}
+.comp-preview{transition:background .3s,color .3s;border-radius:12px;padding:20px;border:1px solid var(--border-l)}
+
+/* Export */
+.ex-tabs{display:flex;gap:4px;margin-bottom:10px;flex-wrap:wrap}
+.ex-tab{padding:5px 12px;border-radius:100px;border:1px solid var(--border-l);background:var(--bg);font-family:var(--mono);font-size:11px;color:var(--text-m);cursor:pointer;transition:all .15s}
+.ex-tab.active{background:var(--text);color:var(--bg);border-color:var(--text)}
+.ex-tab:hover:not(.active){border-color:var(--border)}
+.ex-block{background:var(--bg-code);color:#d4d4d4;border-radius:12px;padding:16px;font-family:var(--mono);font-size:12px;line-height:1.6;max-height:500px;overflow:auto;white-space:pre;tab-size:2;position:relative}
+.ex-copy{position:sticky;top:0;float:right;background:rgba(255,255,255,.08);color:rgba(255,255,255,.35);border:none;padding:3px 10px;border-radius:5px;font-family:var(--mono);font-size:10px;cursor:pointer;transition:all .15s}
+.ex-copy:hover{background:rgba(255,255,255,.14);color:rgba(255,255,255,.6)}
+
+/* Stat bar */
+.stat-bar{display:flex;gap:20px;padding:16px 0;margin:8px 0 20px;flex-wrap:wrap}
+.stat{text-align:center}
+.stat-val{font-family:var(--mono);font-size:24px;font-weight:700;color:var(--text);line-height:1}
+.stat-label{font-size:11px;color:var(--text-m);margin-top:2px}
+
+/* Commands */
+.cg{display:flex;flex-direction:column;gap:2px;margin:10px 0 36px}
+.cw{display:grid;grid-template-columns:160px 1fr;gap:10px;padding:6px 0;font-size:14px;border-bottom:1px solid var(--border-l)}
+.cw:last-child{border-bottom:none}
+.cw code{font-family:var(--mono);font-size:13px;color:var(--accent);font-weight:500;background:none;padding:0}
+.cw span:last-child{color:var(--text-s);font-size:14px}
+
+/* Install */
+.ib{margin:20px 0}
+.il{font-size:12px;color:var(--text-m);margin-bottom:5px;font-weight:500}
+.ic{background:var(--bg-code);color:#e5e5e5;font-family:var(--mono);font-size:13px;padding:12px 18px;border-radius:10px;display:flex;justify-content:space-between;align-items:center;cursor:pointer;transition:opacity .15s;user-select:all}
+.ic:hover{opacity:.9}
+.ic .ch{font-size:10px;color:rgba(255,255,255,.2);user-select:none}
+.tr{display:flex;flex-wrap:wrap;gap:6px;margin:16px 0}
+.tp{font-size:12px;color:var(--text-m);padding:3px 10px;border-radius:100px;border:1px solid var(--border)}
+
+.toast{position:fixed;bottom:24px;left:50%;transform:translateX(-50%) translateY(60px);background:var(--text);color:var(--bg);padding:8px 18px;border-radius:100px;font-size:13px;font-weight:500;z-index:1000;opacity:0;transition:transform .25s cubic-bezier(.34,1.56,.64,1),opacity .25s;pointer-events:none}
+.toast.show{transform:translateX(-50%) translateY(0);opacity:1}
+
+@media(max-width:720px){
+  html{font-size:16px}h1.title{font-size:32px}h1{font-size:24px}
+  .gen-bar{flex-direction:column;align-items:stretch;gap:10px}.gen-go{margin-left:0}
+  .sh-grid{grid-template-columns:repeat(3,1fr)}.mo-grid{grid-template-columns:1fr}
+  .cw{grid-template-columns:140px 1fr;font-size:13px}
+  .tok-grid{grid-template-columns:repeat(auto-fill,minmax(100px,1fr))}
+  .comp-row{flex-direction:column;align-items:stretch}
+}
+@media(prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:.01ms!important;transition-duration:.01ms!important}}
+</style>
+</head>
+<body>
+<a href="#main" class="skip-link">Skip to content</a>
+<div class="toast" id="toast"></div>
+<div class="page">
+<nav aria-label="Primary navigation">
+  <a href="https://github.com/dragoon0x">Index</a>
+  <button class="theme-toggle" onclick="togglePageTheme()" aria-label="Toggle dark mode">◐ Theme</button>
+</nav>
+<header class="hero"><div class="hero-over">##</div><h1 class="title">FORGE</h1><p class="date">20 March, 2026</p></header>
+
+<main id="main">
+<p>FORGE generates a complete design system from one brand color. Not a color palette. A <strong>complete system</strong>: brand palette, tinted neutral grays, semantic tokens, type scale with real font pairings, spacing, shadows, radii, motion tokens, z-index, opacity, breakpoints, and live component previews. 200+ tokens. 30 seconds. Export as CSS, Tailwind, SCSS, or W3C JSON.</p>
+
+<p>I built this because the existing tools either require you to already know what you want (Style Dictionary, Tokens Studio), or they generate incomplete systems that leave you filling in gaps for hours. FORGE makes every decision for you — and every decision is computed, not arbitrary. Pick a color. Pick a project type. Done.</p>
+
+<p>Try it.</p>
+
+<!-- ================== GENERATOR ================== -->
+<div class="gen" id="gen">
+<div class="gen-bar">
+  <div class="gen-color-wrap">
+    <input type="color" class="gen-ci" id="cPick" value="#e8590c" aria-label="Brand color">
+    <input type="text" class="gen-hex" id="cHex" value="#e8590c" maxlength="7" spellcheck="false" aria-label="Hex code">
+  </div>
+  <div class="gen-types" id="pType" role="radiogroup" aria-label="Project type">
+    <button class="active" data-t="saas">SaaS</button>
+    <button data-t="portfolio">Portfolio</button>
+    <button data-t="ecommerce">E-commerce</button>
+    <button data-t="docs">Docs</button>
+  </div>
+  <button class="gen-go" onclick="forge()">Forge ↵</button>
+</div>
+<div class="gen-out" id="out">
+
+<div class="stat-bar" id="stats"></div>
+
+<div class="gs"><div class="gs-head"><h3>Brand Palette</h3><button class="gs-copy" onclick="cpSec('brand')">copy</button></div><div class="pal-row" id="palBrand"></div></div>
+
+<div class="gs"><div class="gs-head"><h3>Neutral Palette</h3><button class="gs-copy" onclick="cpSec('neutral')">copy</button></div><div class="pal-row" id="palNeutral"></div></div>
+
+<div class="gs"><div class="gs-head"><h3>Semantic Tokens</h3><button class="gs-copy" onclick="cpSec('semantic')">copy</button></div><div class="tok-grid" id="tokGrid"></div></div>
+
+<div class="gs"><div class="gs-head"><h3>Type Scale</h3><button class="gs-copy" onclick="cpSec('type')">copy</button></div><div class="ts-list" id="typeScale"></div></div>
+
+<div class="gs"><div class="gs-head"><h3>Spacing</h3></div><div id="spacingScale"></div></div>
+
+<div class="gs"><div class="gs-head"><h3>Shadows</h3></div><div class="sh-grid" id="shadowGrid"></div></div>
+
+<div class="gs"><div class="gs-head"><h3>Border Radius</h3></div><div class="rd-grid" id="radiiGrid"></div></div>
+
+<div class="gs"><div class="gs-head"><h3>Motion</h3></div><div class="mo-grid" id="motionGrid"></div></div>
+
+<div class="gs"><div class="gs-head"><h3>Z-Index · Opacity · Breakpoints</h3></div><div id="miscTokens"></div></div>
+
+<div class="gs">
+  <div class="gs-head"><h3>Component Preview</h3></div>
+  <div class="dm-toggle" id="dmToggle">
+    <button class="dm-btn active" onclick="setPreview('light')">Light</button>
+    <button class="dm-btn" onclick="setPreview('dark')">Dark</button>
+  </div>
+  <div class="comp-preview" id="compPreview"></div>
+</div>
+
+<div class="gs">
+  <div class="gs-head"><h3>Export</h3></div>
+  <div class="ex-tabs" id="exTabs">
+    <button class="ex-tab active" onclick="showEx('css')">CSS</button>
+    <button class="ex-tab" onclick="showEx('tw')">Tailwind</button>
+    <button class="ex-tab" onclick="showEx('scss')">SCSS</button>
+    <button class="ex-tab" onclick="showEx('json')">JSON</button>
+  </div>
+  <div class="ex-block" id="exBlock"><button class="ex-copy" onclick="cpEx()">copy</button><span id="exCode"></span></div>
+</div>
+
+</div>
+</div>
+
+<p class="cap">200+ tokens from one hex value. Client-side only. Your color never leaves the browser. Every shade computed from perceptual HSL interpolation.</p>
+
+<hr>
+
+<h1>What it generates</h1>
+
+<h2>Two palettes, not one</h2>
+<p>Every real design system needs two base palettes: the <strong>brand palette</strong> (11 shades of your color) and a <strong>neutral palette</strong> (11 shades of gray tinted with your brand hue). The tinted neutrals are what make a design feel cohesive — your grays aren't cold, they carry a whisper of your brand. FORGE generates both from one input.</p>
+
+<h2>Semantic tokens mapped by context</h2>
+<p>Raw hex values are useless in a codebase. FORGE maps palette shades to semantic roles: <code>surface</code>, <code>text</code>, <code>border</code>, <code>accent</code>, <code>danger</code>, <code>success</code>, <code>warning</code>, <code>info</code>. Each with a subtle background variant for callout boxes, alert banners, and status indicators. The mapping changes by project type — SaaS gets a light neutral surface, Portfolio gets a dark brand surface.</p>
+
+<h2>Type scale with real fonts</h2>
+<p>The ratio depends on your project type. SaaS gets Major Third (1.250) for clear hierarchy without drama. Portfolio gets Perfect Fourth (1.333). E-commerce gets Minor Third (1.200). Docs gets Major Second (1.125). Font pairings are contextual and none of them use Inter, Roboto, or any overused font. The landing page loads every font family and renders them live in the scale preview.</p>
+
+<h2>Motion tokens</h2>
+<p>Most design system generators skip motion entirely. FORGE generates a duration scale (50ms to 700ms) and five named easing curves (standard, decelerate, accelerate, spring, smooth). These aren't arbitrary — the durations follow a ratio scale and the curves are tuned for specific interaction types.</p>
+
+<h2>Z-index, opacity, breakpoints</h2>
+<p>Every token a frontend codebase needs: a z-index scale (base through modal to toast), an opacity scale (5% to 95%), and responsive breakpoints (sm through 2xl). These are the tokens every developer hardcodes ad-hoc. FORGE systematizes them.</p>
+
+<h2>Live component preview</h2>
+<p>The generator renders buttons, inputs, badges, and cards using your system's actual tokens. Toggle between light and dark mode right on the page. This is the screenshot people share — a complete component set generated from one color pick.</p>
+
+<hr>
+
+<h1>Getting started</h1>
+
+<div class="ib"><div class="il">All tools</div><div class="ic" onclick="cp('npx skills add dragoon0x/forge')"><span>npx skills add dragoon0x/forge</span><span class="ch">click to copy</span></div></div>
+
+<div class="tr"><span class="tp">Claude Code</span><span class="tp">Cursor</span><span class="tp">Gemini CLI</span><span class="tp">Codex CLI</span><span class="tp">Copilot</span><span class="tp">Kiro</span><span class="tp">OpenCode</span><span class="tp">Antigravity</span></div>
+
+<p>First command after install:</p>
+<pre><code>/forge-init #e8590c saas</code></pre>
+<p>This creates <code>.forge.json</code> — the single source of truth. Every subsequent command references your system, not generic defaults.</p>
+
+<hr>
+
+<h1>43 commands</h1>
+
+<h2>Foundation</h2>
+<div class="cg">
+<div class="cw"><code>/forge-init</code><span>Generate full system from color + type</span></div>
+<div class="cw"><code>/forge-update</code><span>Regenerate from new brand color</span></div>
+<div class="cw"><code>/forge-audit</code><span>Check code against your system</span></div>
+<div class="cw"><code>/forge-score</code><span>0-100 adherence score</span></div>
+<div class="cw"><code>/forge-diff</code><span>Show drift between code and system</span></div>
+<div class="cw"><code>/forge-fix</code><span>Auto-fix system violations</span></div>
+</div>
+
+<h2>Color</h2>
+<div class="cg">
+<div class="cw"><code>/forge-palette</code><span>Regenerate brand + neutral palettes</span></div>
+<div class="cw"><code>/forge-semantic</code><span>Rebuild semantic token mapping</span></div>
+<div class="cw"><code>/forge-dark</code><span>Generate dark mode preserving contrast</span></div>
+<div class="cw"><code>/forge-contrast</code><span>WCAG contrast matrix</span></div>
+<div class="cw"><code>/forge-harmonize</code><span>Add complementary accent</span></div>
+<div class="cw"><code>/forge-color-audit</code><span>Find colors not in system</span></div>
+<div class="cw"><code>/forge-color-fix</code><span>Replace rogue colors with tokens</span></div>
+</div>
+
+<h2>Typography</h2>
+<div class="cg">
+<div class="cw"><code>/forge-type</code><span>Regenerate type scale</span></div>
+<div class="cw"><code>/forge-pair</code><span>Font pairing for project type</span></div>
+<div class="cw"><code>/forge-type-audit</code><span>Find off-scale font sizes</span></div>
+<div class="cw"><code>/forge-type-fix</code><span>Snap to scale</span></div>
+<div class="cw"><code>/forge-measure</code><span>Line length check (45-75 chars)</span></div>
+<div class="cw"><code>/forge-rhythm</code><span>Vertical rhythm enforcement</span></div>
+</div>
+
+<h2>Layout</h2>
+<div class="cg">
+<div class="cw"><code>/forge-spacing</code><span>Regenerate spacing scale</span></div>
+<div class="cw"><code>/forge-grid</code><span>Snap spacing to grid</span></div>
+<div class="cw"><code>/forge-spacing-audit</code><span>Find off-scale values</span></div>
+<div class="cw"><code>/forge-spacing-fix</code><span>Auto-fix spacing</span></div>
+<div class="cw"><code>/forge-responsive</code><span>Breakpoint verification</span></div>
+<div class="cw"><code>/forge-density</code><span>Whitespace balance audit</span></div>
+</div>
+
+<h2>Surfaces</h2>
+<div class="cg">
+<div class="cw"><code>/forge-shadow</code><span>Regenerate brand-tinted shadows</span></div>
+<div class="cw"><code>/forge-radius</code><span>Regenerate radius scale</span></div>
+<div class="cw"><code>/forge-elevation</code><span>Elevation hierarchy audit</span></div>
+<div class="cw"><code>/forge-surface-audit</code><span>Background token compliance</span></div>
+</div>
+
+<h2>Export</h2>
+<div class="cg">
+<div class="cw"><code>/forge-export-css</code><span>CSS custom properties</span></div>
+<div class="cw"><code>/forge-export-tw</code><span>Tailwind config</span></div>
+<div class="cw"><code>/forge-export-scss</code><span>SCSS variables + mixins</span></div>
+<div class="cw"><code>/forge-export-json</code><span>W3C Design Tokens JSON</span></div>
+<div class="cw"><code>/forge-export-figma</code><span>Figma Tokens Studio format</span></div>
+</div>
+
+<h2>Accessibility</h2>
+<div class="cg">
+<div class="cw"><code>/forge-a11y</code><span>Full accessibility audit</span></div>
+<div class="cw"><code>/forge-focus</code><span>Focus ring system from accent</span></div>
+<div class="cw"><code>/forge-touch</code><span>44×44px touch target check</span></div>
+<div class="cw"><code>/forge-motion</code><span>Reduced motion fallback check</span></div>
+</div>
+
+<h2>Polish</h2>
+<div class="cg">
+<div class="cw"><code>/forge-polish</code><span>Final pass against system</span></div>
+<div class="cw"><code>/forge-bolder</code><span>Amplify within system range</span></div>
+<div class="cw"><code>/forge-quieter</code><span>Soften within system range</span></div>
+<div class="cw"><code>/forge-normalize</code><span>Force all values to tokens</span></div>
+<div class="cw"><code>/forge-harden</code><span>Error states, i18n, edge cases</span></div>
+</div>
+
+<hr>
+
+<h1>Just a color</h1>
+<p>FORGE can generate 200+ tokens, preview components in light and dark mode, export in four formats, and enforce every token through 43 commands. But if you just need a design foundation before your AI starts writing CSS, <code>/forge-init</code> does that in one line.</p>
+
+<hr>
+<p style="color:var(--text-m);font-size:14px;padding:20px 0 60px">Experimental — built out of curiosity, shared for educational purposes. Not professional design advice. Generated tokens are heuristic approximations. Not affiliated with any AI tool vendor. DYOR. Apache 2.0.<br><br>Built by <a href="https://github.com/dragoon0x">dragoon0x</a> · <a href="https://github.com/dragoon0x/forge">GitHub</a></p>
+</main>
+</div>
+
+<script>
+// ==================== COLOR MATH ====================
+function h2h(hex){let r=parseInt(hex.slice(1,3),16)/255,g=parseInt(hex.slice(3,5),16)/255,b=parseInt(hex.slice(5,7),16)/255;const mx=Math.max(r,g,b),mn=Math.min(r,g,b);let h,s,l=(mx+mn)/2;if(mx===mn)h=s=0;else{const d=mx-mn;s=l>.5?d/(2-mx-mn):d/(mx+mn);switch(mx){case r:h=((g-b)/d+(g<b?6:0))/6;break;case g:h=((b-r)/d+2)/6;break;case b:h=((r-g)/d+4)/6}}return[Math.round(h*360),Math.round(s*100),Math.round(l*100)]}
+function h2x(h,s,l){s/=100;l/=100;const a=s*Math.min(l,1-l);const f=n=>{const k=(n+h/30)%12;return Math.round((l-a*Math.max(Math.min(k-3,9-k,1),-1))*255).toString(16).padStart(2,'0')};return`#${f(0)}${f(8)}${f(4)}`}
+function lum(hex){const c=i=>parseInt(hex.slice(i,i+2),16)/255;const[r,g,b]=[c(1),c(3),c(5)].map(v=>v<=.03928?v/12.92:Math.pow((v+.055)/1.055,2.4));return .2126*r+.7152*g+.0722*b}
+function cr(a,b){const l1=lum(a),l2=lum(b);return(Math.max(l1,l2)+.05)/(Math.min(l1,l2)+.05)}
+function dark(hex){return lum(hex)<.18}
+
+// ==================== GENERATORS ====================
+function genPalette(hex){
+  const[h,s,l]=h2h(hex);
+  return[
+    {n:'50',h:h,s:Math.round(s*.3),l:97},{n:'100',h:h,s:Math.round(s*.5),l:93},
+    {n:'200',h:h,s:Math.round(s*.7),l:85},{n:'300',h:h,s:Math.round(s*.85),l:74},
+    {n:'400',h:h,s:Math.round(s*.95),l:62},{n:'500',h:h,s:s,l:l},
+    {n:'600',h:(h+2)%360,s:s,l:42},{n:'700',h:(h+4)%360,s:Math.round(s*.95),l:34},
+    {n:'800',h:(h+6)%360,s:Math.round(s*.9),l:24},{n:'900',h:(h+8)%360,s:Math.round(s*.85),l:16},
+    {n:'950',h:(h+10)%360,s:Math.round(s*.8),l:10}
+  ].map(o=>({name:o.n,hex:h2x(o.h,Math.min(o.s,100),o.l)}))
+}
+
+function genNeutral(hex){
+  const[h]=h2h(hex);
+  return[
+    {n:'50',l:97},{n:'100',l:93},{n:'200',l:86},{n:'300',l:74},{n:'400',l:58},
+    {n:'500',l:45},{n:'600',l:36},{n:'700',l:28},{n:'800',l:18},{n:'900',l:11},{n:'950',l:6}
+  ].map(o=>({name:o.n,hex:h2x(h,6,o.l)}))
+}
+
+const TCONF={
+  saas:{r:1.25,b:16,d:'Outfit',bd:'DM Sans',m:'JetBrains Mono'},
+  portfolio:{r:1.333,b:17,d:'Instrument Serif',bd:'Outfit',m:'Fira Mono'},
+  ecommerce:{r:1.2,b:15,d:'DM Sans',bd:'Outfit',m:'JetBrains Mono'},
+  docs:{r:1.125,b:17,d:'Newsreader',bd:'Source Serif 4',m:'Fira Mono'}
+};
+
+function genTokens(bp,np,type){
+  const b=Object.fromEntries(bp.map(s=>[s.name,s.hex]));
+  const n=Object.fromEntries(np.map(s=>[s.name,s.hex]));
+  const maps={
+    saas:{surface:n['50'],surfaceElevated:'#ffffff',surfaceSunken:n['100'],text:n['900'],textSecondary:n['600'],textMuted:n['400'],border:n['200'],borderStrong:n['300'],accent:b['500'],accentHover:b['600'],accentSubtle:b['50'],danger:'#dc2626',dangerSubtle:'#fef2f2',success:'#16a34a',successSubtle:'#f0fdf4',warning:'#d97706',warningSubtle:'#fffbeb',info:'#2563eb',infoSubtle:'#eff6ff'},
+    portfolio:{surface:n['950'],surfaceElevated:n['900'],surfaceSunken:'#000000',text:n['50'],textSecondary:n['200'],textMuted:n['400'],border:n['800'],borderStrong:n['700'],accent:b['400'],accentHover:b['300'],accentSubtle:b['950'],danger:'#f87171',dangerSubtle:'#1c0a0a',success:'#4ade80',successSubtle:'#0a1a0f',warning:'#fbbf24',warningSubtle:'#1a150a',info:'#60a5fa',infoSubtle:'#0a1228'},
+    ecommerce:{surface:'#ffffff',surfaceElevated:'#ffffff',surfaceSunken:n['50'],text:n['950'],textSecondary:n['600'],textMuted:n['400'],border:n['100'],borderStrong:n['200'],accent:b['600'],accentHover:b['700'],accentSubtle:b['50'],danger:'#dc2626',dangerSubtle:'#fef2f2',success:'#16a34a',successSubtle:'#f0fdf4',warning:'#d97706',warningSubtle:'#fffbeb',info:'#2563eb',infoSubtle:'#eff6ff'},
+    docs:{surface:'#ffffff',surfaceElevated:'#ffffff',surfaceSunken:n['50'],text:n['950'],textSecondary:n['600'],textMuted:n['400'],border:n['200'],borderStrong:n['300'],accent:b['600'],accentHover:b['700'],accentSubtle:b['50'],danger:'#dc2626',dangerSubtle:'#fef2f2',success:'#16a34a',successSubtle:'#f0fdf4',warning:'#d97706',warningSubtle:'#fffbeb',info:'#2563eb',infoSubtle:'#eff6ff'}
+  };return maps[type]||maps.saas
+}
+
+function genType(type){const c=TCONF[type]||TCONF.saas;const names=['xs','sm','base','md','lg','xl','2xl','3xl'];const steps=[];for(let i=-2;i<6;i++){steps.push({name:names[i+2],size:Math.round(c.b*Math.pow(c.r,i)),lh:i<1?'1.6':i<3?'1.35':'1.15',ls:i>=3?'-0.02em':'0',w:i>=3?700:i>=1?600:400,font:i>=3?c.d:c.bd})}return{...c,steps}}
+
+const SPACING=[{n:'0.5',v:2},{n:'1',v:4},{n:'1.5',v:6},{n:'2',v:8},{n:'3',v:12},{n:'4',v:16},{n:'5',v:20},{n:'6',v:24},{n:'8',v:32},{n:'10',v:40},{n:'12',v:48},{n:'16',v:64},{n:'20',v:80},{n:'24',v:96},{n:'32',v:128}];
+
+function genShadows(hex){const[h]=h2h(hex);const c=`hsla(${h},18%,18%,`;return[
+  {n:'sm',v:`0 1px 2px ${c}0.05)`},
+  {n:'md',v:`0 2px 6px ${c}0.07), 0 1px 2px ${c}0.04)`},
+  {n:'lg',v:`0 6px 20px ${c}0.09), 0 2px 6px ${c}0.04)`},
+  {n:'xl',v:`0 14px 40px ${c}0.12), 0 4px 12px ${c}0.05)`},
+  {n:'2xl',v:`0 24px 56px ${c}0.16), 0 8px 20px ${c}0.06)`}
+]}
+
+const RADII={saas:[4,8,12,16,24,9999],portfolio:[6,12,16,24,32,9999],ecommerce:[4,6,8,12,16,9999],docs:[4,6,8,12,20,9999]};
+const RNAMES=['sm','md','lg','xl','2xl','full'];
+
+const MOTION_DUR=[{n:'instant',v:'50ms'},{n:'fast',v:'100ms'},{n:'normal',v:'200ms'},{n:'slow',v:'300ms'},{n:'slower',v:'500ms'},{n:'slowest',v:'700ms'}];
+const MOTION_EASE=[{n:'standard',v:'cubic-bezier(0.4, 0, 0.2, 1)',d:'General transitions'},{n:'decelerate',v:'cubic-bezier(0, 0, 0.2, 1)',d:'Elements entering'},{n:'accelerate',v:'cubic-bezier(0.4, 0, 1, 1)',d:'Elements exiting'},{n:'spring',v:'cubic-bezier(0.34, 1.56, 0.64, 1)',d:'Playful bounces'},{n:'smooth',v:'cubic-bezier(0.16, 1, 0.3, 1)',d:'Smooth ease out'}];
+
+const ZINDEX=[{n:'base',v:0},{n:'dropdown',v:100},{n:'sticky',v:200},{n:'fixed',v:300},{n:'overlay',v:400},{n:'modal',v:500},{n:'popover',v:600},{n:'toast',v:700}];
+const OPACITY=[{n:'5',v:.05},{n:'10',v:.1},{n:'25',v:.25},{n:'50',v:.5},{n:'75',v:.75},{n:'90',v:.9},{n:'95',v:.95}];
+const BREAKPOINTS=[{n:'sm',v:'640px'},{n:'md',v:'768px'},{n:'lg',v:'1024px'},{n:'xl',v:'1280px'},{n:'2xl',v:'1440px'}];
+
+// ==================== STATE ====================
+let S={brand:'#e8590c',type:'saas',bp:[],np:[],tok:{},tc:{},sh:[],rad:[],prevMode:'light'};
+
+// ==================== UI WIRING ====================
+document.getElementById('cPick').addEventListener('input',e=>{document.getElementById('cHex').value=e.target.value});
+document.getElementById('cHex').addEventListener('input',e=>{if(/^#[0-9a-fA-F]{6}$/.test(e.target.value))document.getElementById('cPick').value=e.target.value});
+document.querySelectorAll('.gen-types button').forEach(b=>b.addEventListener('click',()=>{document.querySelectorAll('.gen-types button').forEach(x=>x.classList.remove('active'));b.classList.add('active')}));
+
+function togglePageTheme(){const t=document.documentElement.getAttribute('data-theme')==='dark'?'light':'dark';document.documentElement.setAttribute('data-theme',t)}
+
+function forge(){
+  const hex=document.getElementById('cHex').value;
+  if(!/^#[0-9a-fA-F]{6}$/.test(hex)){toast('Enter a valid hex');return}
+  const type=document.querySelector('.gen-types button.active').dataset.t;
+  S.brand=hex;S.type=type;
+  S.bp=genPalette(hex);S.np=genNeutral(hex);
+  S.tok=genTokens(S.bp,S.np,type);S.tc=genType(type);
+  S.sh=genShadows(hex);S.rad=(RADII[type]||RADII.saas).map((v,i)=>({n:RNAMES[i],v}));
+
+  // Count tokens
+  let count=S.bp.length+S.np.length+Object.keys(S.tok).length+S.tc.steps.length+SPACING.length+S.sh.length+S.rad.length+MOTION_DUR.length+MOTION_EASE.length+ZINDEX.length+OPACITY.length+BREAKPOINTS.length+4; // +4 for font families, ratio, base
+
+  renderStats(count);renderPal('palBrand',S.bp);renderPal('palNeutral',S.np);renderTok();renderType();renderSpacing();renderShadows();renderRadii();renderMotion();renderMisc();renderComp('light');showEx('css');
+  document.getElementById('out').classList.add('visible');
+}
+
+function renderStats(count){
+  document.getElementById('stats').innerHTML=`
+    <div class="stat"><div class="stat-val">${count}</div><div class="stat-label">tokens</div></div>
+    <div class="stat"><div class="stat-val">${S.bp.length+S.np.length}</div><div class="stat-label">colors</div></div>
+    <div class="stat"><div class="stat-val">${S.tc.steps.length}</div><div class="stat-label">type steps</div></div>
+    <div class="stat"><div class="stat-val">${S.tc.r}</div><div class="stat-label">ratio</div></div>
+    <div class="stat"><div class="stat-val">4</div><div class="stat-label">exports</div></div>`;
+}
+
+function renderPal(id,pal){
+  const el=document.getElementById(id);el.innerHTML='';
+  pal.forEach(s=>{
+    const d=document.createElement('div');d.className='sw';d.style.background=s.hex;
+    d.onclick=()=>{navigator.clipboard.writeText(s.hex);toast(s.hex)};
+    // Contrast indicator against white
+    const ratio=cr(s.hex,'#ffffff');const pass=ratio>=4.5;
+    const lbl=document.createElement('span');lbl.className='sw-l '+(dark(s.hex)?'dk':'lt');lbl.textContent=s.name;
+    const badge=document.createElement('span');badge.className='sw-c '+(pass?'pass':'fail');badge.textContent=pass?'AA':'';
+    d.appendChild(lbl);d.appendChild(badge);el.appendChild(d)
+  })
+}
+
+function renderTok(){
+  const el=document.getElementById('tokGrid');el.innerHTML='';
+  Object.entries(S.tok).forEach(([k,v])=>{
+    const d=document.createElement('div');d.className='tok';d.onclick=()=>{navigator.clipboard.writeText(v);toast(v)};
+    const name=k.replace(/([A-Z])/g,'-$1').toLowerCase();
+    d.innerHTML=`<div class="tok-sw" style="background:${v}"></div><div class="tok-n">--${name}</div><div class="tok-v">${v}</div>`;
+    el.appendChild(d)
+  })
+}
+
+function renderType(){
+  const el=document.getElementById('typeScale');el.innerHTML='';
+  S.tc.steps.forEach(s=>{
+    const d=document.createElement('div');d.className='ts-row';
+    d.innerHTML=`<span class="ts-sample" style="font-size:${Math.min(s.size,40)}px;line-height:${s.lh};font-weight:${s.w};font-family:'${s.font}',sans-serif">The quick brown fox jumps</span><span class="ts-meta">${s.name} · ${s.size}px · ${s.lh}</span>`;
+    el.appendChild(d)
+  })
+}
+
+function renderSpacing(){
+  const el=document.getElementById('spacingScale');el.innerHTML='';
+  const[h]=h2h(S.brand);
+  SPACING.forEach(s=>{
+    const pct=(s.v/128)*100;
+    const d=document.createElement('div');d.className='sp-row';
+    d.innerHTML=`<span class="sp-lbl">${s.n}</span><div class="sp-bar" style="width:${pct}%;background:hsl(${h},50%,${65-s.v/6}%)"></div><span class="sp-val">${s.v}px</span>`;
+    el.appendChild(d)
+  })
+}
+
+function renderShadows(){
+  const el=document.getElementById('shadowGrid');el.innerHTML='';
+  S.sh.forEach(s=>{const d=document.createElement('div');d.className='sh-card';d.style.boxShadow=s.v;d.innerHTML=`<span>${s.n}</span>`;el.appendChild(d)})
+}
+
+function renderRadii(){
+  const el=document.getElementById('radiiGrid');el.innerHTML='';
+  S.rad.forEach(r=>{const d=document.createElement('div');d.className='rd';d.style.borderRadius=r.v+'px';d.innerHTML=`<span>${r.v===9999?'full':r.v}</span>`;el.appendChild(d)})
+}
+
+function renderMotion(){
+  const el=document.getElementById('motionGrid');el.innerHTML='';
+  // Durations
+  MOTION_DUR.forEach(m=>{
+    const d=document.createElement('div');d.className='mo-card';
+    const[h]=h2h(S.brand);
+    d.innerHTML=`<div class="mo-name">${m.n}</div><div class="mo-val">${m.v}</div><div class="mo-preview" style="background:hsl(${h},30%,90%)" onclick="this.querySelector('.mo-preview-bar').style.transition='width ${m.v} ease';this.querySelector('.mo-preview-bar').style.width=this.querySelector('.mo-preview-bar').style.width==='100%'?'0':'100%'"><div class="mo-preview-bar" style="background:hsl(${h},60%,50%)"></div></div>`;
+    el.appendChild(d)
+  });
+  // Easings
+  MOTION_EASE.forEach(m=>{
+    const d=document.createElement('div');d.className='mo-card';
+    d.innerHTML=`<div class="mo-name">${m.n}</div><div class="mo-val" style="font-size:10px">${m.v}</div><div class="mo-val">${m.d}</div>`;
+    el.appendChild(d)
+  })
+}
+
+function renderMisc(){
+  const el=document.getElementById('miscTokens');el.innerHTML='';
+  // Z-index
+  let html='<div style="margin-bottom:16px"><div style="font-size:12px;font-weight:600;color:var(--text-m);margin-bottom:6px">Z-INDEX</div>';
+  ZINDEX.forEach(z=>{html+=`<div class="misc-row"><span class="misc-name">${z.n}</span><span class="misc-val">${z.v}</span></div>`});
+  html+='</div>';
+  // Opacity
+  html+='<div style="margin-bottom:16px"><div style="font-size:12px;font-weight:600;color:var(--text-m);margin-bottom:6px">OPACITY</div>';
+  const[h]=h2h(S.brand);
+  OPACITY.forEach(o=>{html+=`<div class="misc-row"><span class="misc-name">${o.n}</span><div class="misc-vis" style="width:${o.v*100}px;background:hsla(${h},60%,50%,${o.v})"></div><span class="misc-val">${o.v}</span></div>`});
+  html+='</div>';
+  // Breakpoints
+  html+='<div><div style="font-size:12px;font-weight:600;color:var(--text-m);margin-bottom:6px">BREAKPOINTS</div>';
+  BREAKPOINTS.forEach(b=>{html+=`<div class="misc-row"><span class="misc-name">${b.n}</span><span class="misc-val">${b.v}</span></div>`});
+  html+='</div>';
+  el.innerHTML=html
+}
+
+// ==================== COMPONENT PREVIEW ====================
+function setPreview(mode){
+  S.prevMode=mode;
+  document.querySelectorAll('.dm-btn').forEach(b=>b.classList.remove('active'));
+  document.querySelector(`.dm-btn[onclick*="${mode}"]`).classList.add('active');
+  renderComp(mode)
+}
+
+function renderComp(mode){
+  const t=S.tok;const tc=S.tc;
+  const isLight=mode==='light';
+  const bg=isLight?t.surface:S.np[10].hex;
+  const bg2=isLight?t.surfaceElevated:S.np[9].hex;
+  const txt=isLight?t.text:S.np[0].hex;
+  const txt2=isLight?t.textSecondary:S.np[2].hex;
+  const brd=isLight?t.border:S.np[7].hex;
+  const acc=isLight?t.accent:S.bp[3].hex;
+  const accH=isLight?t.accentHover:S.bp[2].hex;
+  const r=S.rad[1].v;
+
+  const el=document.getElementById('compPreview');
+  el.style.background=bg;el.style.color=txt;el.style.borderColor=brd;
+  el.innerHTML=`
+    <div class="comp-label" style="color:${txt2}">Buttons</div>
+    <div class="comp-row">
+      <button class="c-btn" style="background:${acc};color:${isLight?'#fff':S.np[10].hex};border-radius:${r}px" onmouseover="this.style.background='${accH}'" onmouseout="this.style.background='${acc}'">Primary</button>
+      <button class="c-btn c-btn-ghost" style="color:${acc};border-color:${acc};border-radius:${r}px">Secondary</button>
+      <button class="c-btn" style="background:${t.danger};color:#fff;border-radius:${r}px">Danger</button>
+      <button class="c-btn" style="background:transparent;color:${txt2};border:1px solid ${brd};border-radius:${r}px">Ghost</button>
+    </div>
+    <div class="comp-label" style="color:${txt2}">Inputs</div>
+    <div class="comp-row">
+      <input class="c-input" style="color:${txt};border-color:${brd};border-radius:${r}px;background:${isLight?bg2:S.np[9].hex}" placeholder="Email address" onfocus="this.style.borderColor='${acc}'" onblur="this.style.borderColor='${brd}'">
+    </div>
+    <div class="comp-label" style="color:${txt2}">Badges</div>
+    <div class="comp-row">
+      <span class="c-badge" style="background:${t.accentSubtle};color:${acc}">New</span>
+      <span class="c-badge" style="background:${t.successSubtle};color:${t.success}">✓ Active</span>
+      <span class="c-badge" style="background:${t.warningSubtle};color:${t.warning}">Pending</span>
+      <span class="c-badge" style="background:${t.dangerSubtle};color:${t.danger}">Error</span>
+      <span class="c-badge" style="background:${t.infoSubtle};color:${t.info}">Info</span>
+    </div>
+    <div class="comp-label" style="color:${txt2}">Card</div>
+    <div class="comp-row">
+      <div class="c-card" style="background:${bg2};border-color:${brd};border-radius:${S.rad[2].v}px;box-shadow:${S.sh[1].v}">
+        <div class="c-card-title" style="font-family:'${tc.d}',sans-serif">Card title</div>
+        <div class="c-card-desc" style="color:${txt2}">Description text that shows how body copy renders with your type system.</div>
+      </div>
+    </div>`;
+}
+
+// ==================== EXPORT ====================
+function showEx(fmt){
+  document.querySelectorAll('.ex-tab').forEach(t=>t.classList.remove('active'));
+  document.querySelector(`.ex-tab[onclick*="${fmt}"]`).classList.add('active');
+  const el=document.getElementById('exCode');
+  if(fmt==='css')el.textContent=exCSS();
+  else if(fmt==='tw')el.textContent=exTW();
+  else if(fmt==='scss')el.textContent=exSCSS();
+  else el.textContent=exJSON()
+}
+
+function exCSS(){
+  let o=`:root {\n  /* Brand Palette */\n`;
+  S.bp.forEach(s=>{o+=`  --brand-${s.name}: ${s.hex};\n`});
+  o+=`\n  /* Neutral Palette */\n`;
+  S.np.forEach(s=>{o+=`  --neutral-${s.name}: ${s.hex};\n`});
+  o+=`\n  /* Semantic Tokens */\n`;
+  Object.entries(S.tok).forEach(([k,v])=>{o+=`  --${k.replace(/([A-Z])/g,'-$1').toLowerCase()}: ${v};\n`});
+  o+=`\n  /* Typography */\n  --font-display: "${S.tc.d}", sans-serif;\n  --font-body: "${S.tc.bd}", sans-serif;\n  --font-mono: "${S.tc.m}", monospace;\n  --type-ratio: ${S.tc.r};\n  --type-base: ${S.tc.b}px;\n`;
+  S.tc.steps.forEach(s=>{o+=`  --type-${s.name}: ${s.size}px;\n`});
+  o+=`\n  /* Spacing */\n`;
+  SPACING.forEach(s=>{o+=`  --space-${s.n}: ${s.v}px;\n`});
+  o+=`\n  /* Shadows */\n`;
+  S.sh.forEach(s=>{o+=`  --shadow-${s.n}: ${s.v};\n`});
+  o+=`\n  /* Border Radius */\n`;
+  S.rad.forEach(r=>{o+=`  --radius-${r.n}: ${r.v}px;\n`});
+  o+=`\n  /* Motion - Durations */\n`;
+  MOTION_DUR.forEach(m=>{o+=`  --duration-${m.n}: ${m.v};\n`});
+  o+=`\n  /* Motion - Easing */\n`;
+  MOTION_EASE.forEach(m=>{o+=`  --ease-${m.n}: ${m.v};\n`});
+  o+=`\n  /* Z-Index */\n`;
+  ZINDEX.forEach(z=>{o+=`  --z-${z.n}: ${z.v};\n`});
+  o+=`\n  /* Opacity */\n`;
+  OPACITY.forEach(op=>{o+=`  --opacity-${op.n}: ${op.v};\n`});
+  o+=`\n  /* Breakpoints */\n`;
+  BREAKPOINTS.forEach(b=>{o+=`  --screen-${b.n}: ${b.v};\n`});
+  o+=`}\n\n/* Dark Mode */\n@media (prefers-color-scheme: dark) {\n  :root {\n`;
+  // Dark mode overrides
+  o+=`    --surface: ${S.np[10].hex};\n    --surface-elevated: ${S.np[9].hex};\n    --text: ${S.np[0].hex};\n    --text-secondary: ${S.np[2].hex};\n    --text-muted: ${S.np[4].hex};\n    --border: ${S.np[7].hex};\n    --accent: ${S.bp[3].hex};\n    --accent-hover: ${S.bp[2].hex};\n`;
+  o+=`  }\n}`;
+  return o
+}
+
+function exTW(){
+  let o=`/** @type {import('tailwindcss').Config} */\nmodule.exports = {\n  theme: {\n    extend: {\n      colors: {\n        brand: {\n`;
+  S.bp.forEach(s=>{o+=`          '${s.name}': '${s.hex}',\n`});
+  o+=`        },\n        neutral: {\n`;
+  S.np.forEach(s=>{o+=`          '${s.name}': '${s.hex}',\n`});
+  o+=`        },\n`;
+  // Semantic as flat colors
+  Object.entries(S.tok).forEach(([k,v])=>{o+=`        '${k.replace(/([A-Z])/g,'-$1').toLowerCase()}': '${v}',\n`});
+  o+=`      },\n      fontFamily: {\n        display: ['"${S.tc.d}"', 'sans-serif'],\n        body: ['"${S.tc.bd}"', 'sans-serif'],\n        mono: ['"${S.tc.m}"', 'monospace'],\n      },\n      fontSize: {\n`;
+  S.tc.steps.forEach(s=>{o+=`        '${s.name}': ['${s.size}px', { lineHeight: '${s.lh}' }],\n`});
+  o+=`      },\n      spacing: {\n`;
+  SPACING.forEach(s=>{o+=`        '${s.n}': '${s.v}px',\n`});
+  o+=`      },\n      boxShadow: {\n`;
+  S.sh.forEach(s=>{o+=`        '${s.n}': '${s.v}',\n`});
+  o+=`      },\n      borderRadius: {\n`;
+  S.rad.forEach(r=>{o+=`        '${r.n}': '${r.v}px',\n`});
+  o+=`      },\n      transitionDuration: {\n`;
+  MOTION_DUR.forEach(m=>{o+=`        '${m.n}': '${m.v}',\n`});
+  o+=`      },\n      transitionTimingFunction: {\n`;
+  MOTION_EASE.forEach(m=>{o+=`        '${m.n}': '${m.v}',\n`});
+  o+=`      },\n      zIndex: {\n`;
+  ZINDEX.forEach(z=>{o+=`        '${z.n}': '${z.v}',\n`});
+  o+=`      },\n      screens: {\n`;
+  BREAKPOINTS.forEach(b=>{o+=`        '${b.n}': '${b.v}',\n`});
+  o+=`      },\n    },\n  },\n}`;
+  return o
+}
+
+function exSCSS(){
+  let o=`// Brand Palette\n`;
+  S.bp.forEach(s=>{o+=`$brand-${s.name}: ${s.hex};\n`});
+  o+=`\n// Neutral Palette\n`;
+  S.np.forEach(s=>{o+=`$neutral-${s.name}: ${s.hex};\n`});
+  o+=`\n// Semantic Tokens\n`;
+  Object.entries(S.tok).forEach(([k,v])=>{o+=`$${k.replace(/([A-Z])/g,'-$1').toLowerCase()}: ${v};\n`});
+  o+=`\n// Typography\n$font-display: "${S.tc.d}", sans-serif;\n$font-body: "${S.tc.bd}", sans-serif;\n$font-mono: "${S.tc.m}", monospace;\n$type-ratio: ${S.tc.r};\n$type-base: ${S.tc.b}px;\n`;
+  S.tc.steps.forEach(s=>{o+=`$type-${s.name}: ${s.size}px;\n`});
+  o+=`\n// Spacing\n`;
+  SPACING.forEach(s=>{o+=`$space-${s.n}: ${s.v}px;\n`});
+  o+=`\n// Shadows\n`;
+  S.sh.forEach(s=>{o+=`$shadow-${s.n}: ${s.v};\n`});
+  o+=`\n// Border Radius\n`;
+  S.rad.forEach(r=>{o+=`$radius-${r.n}: ${r.v}px;\n`});
+  o+=`\n// Motion\n`;
+  MOTION_DUR.forEach(m=>{o+=`$duration-${m.n}: ${m.v};\n`});
+  MOTION_EASE.forEach(m=>{o+=`$ease-${m.n}: ${m.v};\n`});
+  o+=`\n// Z-Index\n`;
+  ZINDEX.forEach(z=>{o+=`$z-${z.n}: ${z.v};\n`});
+  o+=`\n// Mixins\n@mixin type-scale($step) {\n  font-size: var(--type-#{$step});\n}\n\n@mixin elevation($level) {\n  box-shadow: var(--shadow-#{$level});\n}`;
+  return o
+}
+
+function exJSON(){
+  const o={color:{brand:{},neutral:{}},semantic:{},typography:{fontDisplay:{$value:S.tc.d,$type:'fontFamily'},fontBody:{$value:S.tc.bd,$type:'fontFamily'},fontMono:{$value:S.tc.m,$type:'fontFamily'},ratio:{$value:S.tc.r,$type:'number'},base:{$value:S.tc.b+'px',$type:'dimension'}},spacing:{},shadow:{},radius:{},motion:{duration:{},easing:{}},zIndex:{},opacity:{},breakpoint:{}};
+  S.bp.forEach(s=>{o.color.brand[s.name]={$value:s.hex,$type:'color'}});
+  S.np.forEach(s=>{o.color.neutral[s.name]={$value:s.hex,$type:'color'}});
+  Object.entries(S.tok).forEach(([k,v])=>{o.semantic[k]={$value:v,$type:'color'}});
+  S.tc.steps.forEach(s=>{o.typography[s.name]={$value:s.size+'px',$type:'dimension'}});
+  SPACING.forEach(s=>{o.spacing[s.n]={$value:s.v+'px',$type:'dimension'}});
+  S.sh.forEach(s=>{o.shadow[s.n]={$value:s.v,$type:'shadow'}});
+  S.rad.forEach(r=>{o.radius[r.n]={$value:r.v+'px',$type:'dimension'}});
+  MOTION_DUR.forEach(m=>{o.motion.duration[m.n]={$value:m.v,$type:'duration'}});
+  MOTION_EASE.forEach(m=>{o.motion.easing[m.n]={$value:m.v,$type:'cubicBezier'}});
+  ZINDEX.forEach(z=>{o.zIndex[z.n]={$value:z.v,$type:'number'}});
+  OPACITY.forEach(op=>{o.opacity[op.n]={$value:op.v,$type:'number'}});
+  BREAKPOINTS.forEach(b=>{o.breakpoint[b.n]={$value:b.v,$type:'dimension'}});
+  return JSON.stringify(o,null,2)
+}
+
+function cpSec(which){
+  let t='';
+  if(which==='brand')t=S.bp.map(s=>`--brand-${s.name}: ${s.hex};`).join('\n');
+  else if(which==='neutral')t=S.np.map(s=>`--neutral-${s.name}: ${s.hex};`).join('\n');
+  else if(which==='semantic')t=Object.entries(S.tok).map(([k,v])=>`--${k.replace(/([A-Z])/g,'-$1').toLowerCase()}: ${v};`).join('\n');
+  else if(which==='type')t=S.tc.steps.map(s=>`--type-${s.name}: ${s.size}px;`).join('\n');
+  navigator.clipboard.writeText(t);toast('Copied')
+}
+function cpEx(){navigator.clipboard.writeText(document.getElementById('exCode').textContent);toast('Copied')}
+function toast(m){const t=document.getElementById('toast');t.textContent=m;t.classList.add('show');setTimeout(()=>t.classList.remove('show'),2e3)}
+function cp(t){navigator.clipboard.writeText(t).then(()=>toast('Copied'))}
+
+// Aliases for compatibility
+const generatePalette=genPalette,exportCSS=exCSS,exportTailwind=exTW,exportJSON=exJSON;
+window.addEventListener('load',()=>setTimeout(forge,200));
+</script>
+</body>
+</html>

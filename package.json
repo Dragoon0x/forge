@@ -1,0 +1,47 @@
+{
+  "name": "forge-design",
+  "version": "1.0.0",
+  "description": "Experimental — Complete design system from one color. 43 commands, 200+ tokens, 4 export formats. Built out of curiosity for educational purposes. DYOR.",
+  "keywords": [
+    "design-system",
+    "design-tokens",
+    "ai",
+    "skills",
+    "claude-code",
+    "cursor",
+    "gemini-cli",
+    "codex",
+    "copilot",
+    "frontend",
+    "color-palette",
+    "type-scale",
+    "spacing",
+    "tailwind",
+    "css-variables",
+    "agent-skills",
+    "SKILL.md"
+  ],
+  "homepage": "https://dragoon0x.github.io/forge/",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/dragoon0x/forge.git"
+  },
+  "author": "dragoon0x",
+  "license": "Apache-2.0",
+  "scripts": {
+    "build": "node build.js",
+    "test": "node test/test.js"
+  },
+  "files": [
+    "source/",
+    ".claude/",
+    ".cursor/",
+    ".agents/",
+    ".gemini/",
+    ".codex/",
+    "docs/",
+    "README.md",
+    "LICENSE",
+    "DISCLAIMER.md"
+  ]
+}
