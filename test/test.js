@@ -93,7 +93,7 @@ assert(fs.existsSync(path.join(__dirname, '..', 'build.js')), 'Build script exis
 
 // Package.json
 const pkg = JSON.parse(fs.readFileSync(path.join(__dirname, '..', 'package.json'), 'utf-8'));
-assert(pkg.name === 'forge-design', 'Package name correct');
+assert(pkg.name === 'useforge', 'Package name correct');
 assert(pkg.version === '1.0.0', 'Version 1.0.0');
 assert(pkg.license === 'Apache-2.0', 'License Apache-2.0');
 
